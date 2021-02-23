@@ -2,12 +2,14 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Icon} from 'native-base';
 
 import ContactsList from '../screens/ContactsList';
 import ContactsDetails from '../screens/ContactDetails';
 import ActionsList from '../screens/ActionsList';
 import ActionsDetails from '../screens/ActionDetails';
+import Settings from '../screens/Settings';
 
 const ContactsStack = createStackNavigator();
 const ContactsStackScreen = () => {
@@ -69,10 +71,18 @@ const AppTabsScreen = () => (
   </AppTabs.Navigator>
 );
 
+const AppDrawer = createDrawerNavigator();
+const AppDrawerScreen = () => (
+  <AppDrawer.Navigator drawerType="slide">
+    <AppDrawer.Screen name="Tabs" component={AppTabsScreen} />
+    <AppDrawer.Screen name="Settings" component={Settings} />
+  </AppDrawer.Navigator>
+);
+
 export default () => {
   return (
     <NavigationContainer>
-      <AppTabsScreen />
+      <AppDrawerScreen />
     </NavigationContainer>
   );
 };
