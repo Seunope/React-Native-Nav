@@ -2,6 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Icon} from 'native-base';
 
 import ContactsList from '../screens/ContactsList';
 import ContactsDetails from '../screens/ContactDetails';
@@ -44,9 +45,27 @@ const ActionsStackScreen = () => (
 
 const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = () => (
-  <AppTabs.Navigator>
-    <AppTabs.Screen name="Contacts" component={ContactsStackScreen} />
-    <AppTabs.Screen name="Actions" component={ActionsStackScreen} />
+  <AppTabs.Navigator
+    tabBarOptions={{
+      activeTintColor: 'red',
+      activeBackgroundColor: 'blue',
+    }}>
+    <AppTabs.Screen
+      name="Contacts"
+      component={ContactsStackScreen}
+      options={{
+        tabBarIcon: (props) => (
+          <Icon name="ios-people" size={props.size} color={props.color} />
+        ),
+      }}
+    />
+    <AppTabs.Screen
+      name="Actions"
+      component={ActionsStackScreen}
+      options={{
+        tabBarIcon: () => <Icon name="ios-checkmark-circle-outline" />,
+      }}
+    />
   </AppTabs.Navigator>
 );
 
@@ -54,7 +73,6 @@ export default () => {
   return (
     <NavigationContainer>
       <AppTabsScreen />
-      {/* <ContactsStackScreen /> */}
     </NavigationContainer>
   );
 };
