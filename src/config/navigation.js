@@ -1,9 +1,12 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import ContactsList from '../screens/ContactsList';
 import ContactsDetails from '../screens/ContactDetails';
+import ActionsList from '../screens/ActionsList';
+import ActionsDetails from '../screens/ActionDetails';
 
 const ContactsStack = createStackNavigator();
 const ContactsStackScreen = () => {
@@ -31,10 +34,27 @@ const ContactsStackScreen = () => {
   );
 };
 
+const ActionStack = createStackNavigator();
+const ActionsStackScreen = () => (
+  <ActionStack.Navigator>
+    <ActionStack.Screen name="ActionList" component={ActionsList} />
+    <ActionStack.Screen name="ActionDetails" component={ActionsDetails} />
+  </ActionStack.Navigator>
+);
+
+const AppTabs = createBottomTabNavigator();
+const AppTabsScreen = () => (
+  <AppTabs.Navigator>
+    <AppTabs.Screen name="Contacts" component={ContactsStackScreen} />
+    <AppTabs.Screen name="Actions" component={ActionsStackScreen} />
+  </AppTabs.Navigator>
+);
+
 export default () => {
   return (
     <NavigationContainer>
-      <ContactsStackScreen />
+      <AppTabsScreen />
+      {/* <ContactsStackScreen /> */}
     </NavigationContainer>
   );
 };
