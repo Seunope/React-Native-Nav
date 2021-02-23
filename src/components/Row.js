@@ -50,7 +50,7 @@ export const Row = ({image, title, subtitle, onPress}) => (
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
     <View style={styles.right}>
-      <Icon name="ios-arrow-forward" color="#666" size={20} />
+      <Icon name="ios-arrow-forward" />
     </View>
   </TouchableOpacity>
 );
