@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -49,6 +50,9 @@ const ActionsStackScreen = () => (
   </ActionStack.Navigator>
 );
 
+const CreateNewPlaceHolder = () => (
+  <View style={{flex: 1, backgroundColor: 'blue'}} />
+);
 const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = () => (
   <AppTabs.Navigator
@@ -65,6 +69,19 @@ const AppTabsScreen = () => (
           <Icon name="ios-people" size={props.size} color={props.color} />
         ),
       }}
+    />
+    <AppTabs.Screen
+      name="Create"
+      component={CreateNewPlaceHolder}
+      options={{
+        tabBarIcon: () => <Icon name="ios-add" />,
+      }}
+      listeners={({navigation}) => ({
+        tabPress: (event) => {
+          event.preventDefault();
+          navigation.navigate('CreateNew');
+        },
+      })}
     />
     <AppTabs.Screen
       name="Actions"
@@ -92,6 +109,7 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
+const CreateNew = () => <View style={{flex: 1, backgroundColor: 'red'}} />;
 const RootStack = createStackNavigator();
 const RootStackScreen = () => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -116,8 +134,8 @@ const RootStackScreen = () => {
       ) : (
         <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
       )}
+      <RootStack.Screen name="CreateNew" component={CreateNew} />
       <RootStack.Screen name="Modal" component={Modal} />
-
     </RootStack.Navigator>
   );
 };
