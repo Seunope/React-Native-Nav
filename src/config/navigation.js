@@ -10,6 +10,10 @@ import ContactsDetails from '../screens/ContactDetails';
 import ActionsList from '../screens/ActionsList';
 import ActionsDetails from '../screens/ActionDetails';
 import Settings from '../screens/Settings';
+import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
+import Loading from '../screens/Loading';
+import Modal from '../screens/Modal';
 
 const ContactsStack = createStackNavigator();
 const ContactsStackScreen = () => {
@@ -48,6 +52,7 @@ const ActionsStackScreen = () => (
 const AppTabs = createBottomTabNavigator();
 const AppTabsScreen = () => (
   <AppTabs.Navigator
+    initialRouteName="Actions"
     tabBarOptions={{
       activeTintColor: 'red',
       activeBackgroundColor: 'blue',
@@ -79,10 +84,48 @@ const AppDrawerScreen = () => (
   </AppDrawer.Navigator>
 );
 
+const AuthStack = createStackNavigator();
+const AuthStackScreen = () => (
+  <AuthStack.Navigator drawerType="slide">
+    <AuthStack.Screen name="SignIn " component={SignIn} />
+    <AuthStack.Screen name="SignUp" component={SignUp} />
+  </AuthStack.Navigator>
+);
+
+const RootStack = createStackNavigator();
+const RootStackScreen = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(!isLoading);
+    }, 500);
+
+    setTimeout(() => {
+      setUser({});
+    }, 1000);
+  }, []);
+
+  return (
+    <RootStack.Navigator headerMode="none" mode="modal">
+      {isLoading ? (
+        <RootStack.Screen name="Loading" component={Loading} />
+      ) : user ? (
+        <RootStack.Screen name="AppDrawerScreen" component={AppDrawerScreen} />
+      ) : (
+        <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+      )}
+      <RootStack.Screen name="Modal" component={Modal} />
+
+    </RootStack.Navigator>
+  );
+};
+
 export default () => {
   return (
     <NavigationContainer>
-      <AppDrawerScreen />
+      <RootStackScreen />
     </NavigationContainer>
   );
 };

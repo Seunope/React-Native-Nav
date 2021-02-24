@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Button } from "react-native";
+import React from 'react';
+import {View, Button} from 'react-native';
 
-export default () => (
-  <View style={{ flex: 1 }}>
-    <Button title="Open Modal" onPress={() => alert("todo!")} />
-    <Button title="Open Alert" onPress={() => alert("todo!")} />
+export default ({navigation}) => (
+  <View style={{flex: 1}}>
+    <Button title="Open Modal" onPress={() => navigation.navigate('Modal')} />
+    <Button title="Open Alert" onPress={() => alert('todo!')} />
   </View>
 );

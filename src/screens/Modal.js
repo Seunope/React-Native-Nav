@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
-export default () => (
+export default ({navigation}) => (
   <View
     style={{
       flex: 1,
@@ -11,7 +11,7 @@ export default () => (
     }}>
     <TouchableOpacity
       style={{backgroundColor: 'white', padding: 20}}
-      onPress={() => alert('todo!')}>
+      onPress={() => navigation.pop()}>
       <Text>Modal me</Text>
     </TouchableOpacity>
   </View>
